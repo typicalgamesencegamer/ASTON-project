@@ -1,0 +1,127 @@
+[
+  {
+    "groupNum": "A-101",
+    "avgGrade": 4.5,
+    "recBookNum": 1001
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 3.8,
+    "recBookNum": 1002
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.9,
+    "recBookNum": 1003
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.2,
+    "recBookNum": 1004
+  },
+  {
+    "groupNum": "C-303",
+    "avgGrade": 5.0,
+    "recBookNum": 1005
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 3.5,
+    "recBookNum": 1006
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.7,
+    "recBookNum": 1007
+  },
+  {
+    "groupNum": "C-303",
+    "avgGrade": 3.9,
+    "recBookNum": 1008
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 4.8,
+    "recBookNum": 1009
+  },
+  {
+    "groupNum": "D-404",
+    "avgGrade": 4.4,
+    "recBookNum": 1010
+  },
+  {
+    "groupNum": "D-404",
+    "avgGrade": 3.6,
+    "recBookNum": 1011
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 4.1,
+    "recBookNum": 1012
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.3,
+    "recBookNum": 1013
+  },
+  {
+    "groupNum": "C-303",
+    "avgGrade": 4.6,
+    "recBookNum": 1014
+  },
+  {
+    "groupNum": "D-404",
+    "avgGrade": 5.0,
+    "recBookNum": 1015
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 3.7,
+    "recBookNum": 1016
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.0,
+    "recBookNum": 1017
+  },
+  {
+    "groupNum": "C-303",
+    "avgGrade": 4.5,
+    "recBookNum": 1018
+  },
+  {
+    "groupNum": "D-404",
+    "avgGrade": 4.8,
+    "recBookNum": 1019
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 3.9,
+    "recBookNum": 1020
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.9,
+    "recBookNum": 1021
+  },
+  {
+    "groupNum": "C-303",
+    "avgGrade": 4.2,
+    "recBookNum": 1022
+  },
+  {
+    "groupNum": "D-404",
+    "avgGrade": 3.8,
+    "recBookNum": 1023
+  },
+  {
+    "groupNum": "A-101",
+    "avgGrade": 4.6,
+    "recBookNum": 1024
+  },
+  {
+    "groupNum": "B-202",
+    "avgGrade": 4.4,
+    "recBookNum": 1025
+  }
+]
