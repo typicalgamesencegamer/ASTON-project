@@ -1,9 +1,11 @@
-package com.aston.project.app.strategy.impl;
+package com.aston.project.strategy.impl;
 
-import com.aston.project.app.strategy.api.ReadStrategy;
+import com.aston.project.strategy.api.ReadStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import com.aston.project.builder.Student;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +13,13 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.aston.project.app.builder.model.Student;
-
 public class JsonReader implements ReadStrategy {
+    private String path;
+    public JsonReader(String path){
+        this.path = path;
+    }
     public List<Student> read() {
-        InputStream res = getClass().getResourceAsStream("/students.txt");
+        InputStream res = getClass().getResourceAsStream(path);
         if (res != null) {
             try {
                 String jsonContent = new String(res.readAllBytes(), StandardCharsets.UTF_8);

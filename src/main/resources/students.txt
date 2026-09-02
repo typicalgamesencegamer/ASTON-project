@@ -1,127 +1,127 @@
 [
   {
-    "groupNum": "A-101",
-    "avgGrade": 4.5,
-    "recBookNum": 1001
+    "groupNumber": 101,
+    "studentId": 1001,
+    "averageGrade": 4.5
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 3.8,
-    "recBookNum": 1002
+    "groupNumber": 101,
+    "studentId": 1002,
+    "averageGrade": 3.8
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.9,
-    "recBookNum": 1003
+    "groupNumber": 102,
+    "studentId": 1003,
+    "averageGrade": 4.9
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.2,
-    "recBookNum": 1004
+    "groupNumber": 102,
+    "studentId": 1004,
+    "averageGrade": 4.2
   },
   {
-    "groupNum": "C-303",
-    "avgGrade": 5.0,
-    "recBookNum": 1005
+    "groupNumber": 103,
+    "studentId": 1005,
+    "averageGrade": 5.0
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 3.5,
-    "recBookNum": 1006
+    "groupNumber": 103,
+    "studentId": 1006,
+    "averageGrade": 3.5
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.7,
-    "recBookNum": 1007
+    "groupNumber": 104,
+    "studentId": 1007,
+    "averageGrade": 4.7
   },
   {
-    "groupNum": "C-303",
-    "avgGrade": 3.9,
-    "recBookNum": 1008
+    "groupNumber": 104,
+    "studentId": 1008,
+    "averageGrade": 3.9
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 4.8,
-    "recBookNum": 1009
+    "groupNumber": 105,
+    "studentId": 1009,
+    "averageGrade": 4.8
   },
   {
-    "groupNum": "D-404",
-    "avgGrade": 4.4,
-    "recBookNum": 1010
+    "groupNumber": 105,
+    "studentId": 1010,
+    "averageGrade": 4.4
   },
   {
-    "groupNum": "D-404",
-    "avgGrade": 3.6,
-    "recBookNum": 1011
+    "groupNumber": 106,
+    "studentId": 1011,
+    "averageGrade": 3.6
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 4.1,
-    "recBookNum": 1012
+    "groupNumber": 106,
+    "studentId": 1012,
+    "averageGrade": 4.1
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.3,
-    "recBookNum": 1013
+    "groupNumber": 107,
+    "studentId": 1013,
+    "averageGrade": 4.3
   },
   {
-    "groupNum": "C-303",
-    "avgGrade": 4.6,
-    "recBookNum": 1014
+    "groupNumber": 107,
+    "studentId": 1014,
+    "averageGrade": 4.6
   },
   {
-    "groupNum": "D-404",
-    "avgGrade": 5.0,
-    "recBookNum": 1015
+    "groupNumber": 108,
+    "studentId": 1015,
+    "averageGrade": 5.0
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 3.7,
-    "recBookNum": 1016
+    "groupNumber": 108,
+    "studentId": 1016,
+    "averageGrade": 3.7
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.0,
-    "recBookNum": 1017
+    "groupNumber": 109,
+    "studentId": 1017,
+    "averageGrade": 4.0
   },
   {
-    "groupNum": "C-303",
-    "avgGrade": 4.5,
-    "recBookNum": 1018
+    "groupNumber": 109,
+    "studentId": 1018,
+    "averageGrade": 4.5
   },
   {
-    "groupNum": "D-404",
-    "avgGrade": 4.8,
-    "recBookNum": 1019
+    "groupNumber": 110,
+    "studentId": 1019,
+    "averageGrade": 4.8
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 3.9,
-    "recBookNum": 1020
+    "groupNumber": 110,
+    "studentId": 1020,
+    "averageGrade": 3.9
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.9,
-    "recBookNum": 1021
+    "groupNumber": 111,
+    "studentId": 1021,
+    "averageGrade": 4.9
   },
   {
-    "groupNum": "C-303",
-    "avgGrade": 4.2,
-    "recBookNum": 1022
+    "groupNumber": 111,
+    "studentId": 1022,
+    "averageGrade": 4.2
   },
   {
-    "groupNum": "D-404",
-    "avgGrade": 3.8,
-    "recBookNum": 1023
+    "groupNumber": 112,
+    "studentId": 1023,
+    "averageGrade": 3.8
   },
   {
-    "groupNum": "A-101",
-    "avgGrade": 4.6,
-    "recBookNum": 1024
+    "groupNumber": 112,
+    "studentId": 1024,
+    "averageGrade": 4.6
   },
   {
-    "groupNum": "B-202",
-    "avgGrade": 4.4,
-    "recBookNum": 1025
+    "groupNumber": 113,
+    "studentId": 1025,
+    "averageGrade": 4.4
   }
 ]
