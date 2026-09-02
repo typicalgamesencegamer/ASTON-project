@@ -1,3 +1,4 @@
+out/
 target/
 test/
 !.mvn/wrapper/maven-wrapper.jar
