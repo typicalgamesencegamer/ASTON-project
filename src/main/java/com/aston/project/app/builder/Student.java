@@ -8,9 +8,11 @@ public class Student {
     private final double averageGrade;
 
     public Student(StudentBuilder builder) {
-        this.groupNumber = builder.groupNumber;
-        this.studentId = builder.studentId;
-        this.averageGrade = builder.averageGrade;
+        Objects.requireNonNull(builder, "StudentBuilder не должен быть null");
+
+        this.groupNumber = builder.getGroupNumber();
+        this.studentId = builder.getStudentId();
+        this.averageGrade = builder.getAverageGrade();
     }
 
     public int getGroupNumber() {

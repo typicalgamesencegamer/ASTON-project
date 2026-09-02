@@ -28,9 +28,12 @@ public class StudentTests {
                     !student1.toString().contains("averageGrade=85.5")) {
                 System.out.println("FAIL: Успешное создание не соответствует ожиданиям.");
                 allPassed = false;
-            } else {
+            }
+
+            else {
                 System.out.println("PASS: Успешное создание студента.");
             }
+
         } catch (Exception e) {
             System.out.println("FAIL: Неожиданная ошибка при успешном создании: " + e.getMessage());
             allPassed = false;
