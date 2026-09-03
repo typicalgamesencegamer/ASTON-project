@@ -1,8 +1,10 @@
 package com.aston.project.app.builder;
 
+import java.util.Random;
+
 public class StudentBuilder {
     protected int groupNumber;
-    protected int studentId;
+    protected Integer studentId = null;
     protected double averageGrade;
     private double minAverageGrade = 0.0;
     private double maxAverageGrade = 100.0;
@@ -53,18 +55,24 @@ public class StudentBuilder {
         return averageGrade;
     }
 
-
     public Student build() {
         if (!groupNumberSet) {
             throw new IllegalStateException("Номер группы не был установлен.");
         }
-        if (!studentIdSet) {
-            throw new IllegalStateException("Номер зачетной книжки не был установлен.");
-        }
         if (!averageGradeSet) {
             throw new IllegalStateException("Средний балл не был установлен.");
         }
-
+        int studentIdToUse;
+        if (this.studentId == null) {
+            Random random = new Random();
+            studentIdToUse = random.nextInt(1000) + 1;
+            this.studentId = studentIdToUse;
+            System.out.println("Сгенерирован случайный Student ID: " + this.studentId);
+        } else if (this.studentId <= 0) {
+            throw new IllegalStateException("Номер зачетной книжки (studentId) должен быть положительным.");
+        } else {
+            studentIdToUse = this.studentId;
+        }
         return new Student(this);
     }
 }
