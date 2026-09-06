@@ -2,6 +2,10 @@ package com.aston.project.app.utils.customcollections;
 
 import junit.framework.TestCase;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class CustomArrayListTest extends TestCase {
     public void testAddAndGet() {
         CustomArrayList<String> list = new CustomArrayList<>();
@@ -55,6 +59,48 @@ public class CustomArrayListTest extends TestCase {
             list.get(0);
             fail("Ожидалось исключение IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException expected) {
+            // Ожидаемое исключение.
+        }
+    }
+
+    public void testCollectionMethods() {
+        CustomArrayList<String> list = new CustomArrayList<>();
+        list.addAll(Arrays.asList("one", "two", "two", "three"));
+
+        assertTrue(list.contains("two"));
+        assertTrue(list.containsAll(Arrays.asList("one", "three")));
+        assertEquals(1, list.indexOf("two"));
+        assertEquals(2, list.lastIndexOf("two"));
+        assertTrue(list.remove("two"));
+        assertEquals(1, list.lastIndexOf("two"));
+    }
+
+    public void testArrayIteratorAndSubList() {
+        CustomArrayList<Integer> list = new CustomArrayList<>();
+        list.addAll(Arrays.asList(1, 2, 3));
+
+        Integer[] values = list.toArray(new Integer[0]);
+        assertTrue(Arrays.equals(new Integer[]{1, 2, 3}, values));
+
+        Iterator<Integer> iterator = list.iterator();
+        assertEquals(Integer.valueOf(1), iterator.next());
+        iterator.remove();
+        assertEquals(Integer.valueOf(2), list.get(0));
+
+        List<Integer> part = list.subList(0, 2);
+        part.set(0, 99);
+        assertEquals(Integer.valueOf(2), list.get(0));
+        assertEquals(Integer.valueOf(99), part.get(0));
+    }
+
+    public void testSubListRejectsReversedRange() {
+        CustomArrayList<Integer> list = new CustomArrayList<>();
+        list.addAll(Arrays.asList(1, 2, 3));
+
+        try {
+            list.subList(2, 1);
+            fail("Ожидалось исключение IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
             // Ожидаемое исключение.
         }
     }
