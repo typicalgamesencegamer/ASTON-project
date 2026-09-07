@@ -1,5 +1,6 @@
 package com.aston.project.app.builder;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class StudentBuilder {
@@ -10,7 +11,6 @@ public class StudentBuilder {
     private double maxAverageGrade = 100.0;
 
     private boolean groupNumberSet = false;
-    private boolean studentIdSet = false;
     private boolean averageGradeSet = false;
 
     public StudentBuilder setGroupNumber(int groupNumber) {
@@ -27,7 +27,6 @@ public class StudentBuilder {
             throw new IllegalArgumentException("Номер зачетной книжки должен быть положительным числом.");
         }
         this.studentId = studentId;
-        this.studentIdSet = true;
         return this;
     }
 
@@ -45,9 +44,8 @@ public class StudentBuilder {
         return groupNumber;
     }
 
-    public int getStudentId() {
-        if (!studentIdSet) throw new IllegalStateException("Student ID not set.");
-        return studentId;
+    public Integer getStudentId() {
+         return this.studentId;
     }
 
     public double getAverageGrade() {
@@ -62,16 +60,19 @@ public class StudentBuilder {
         if (!averageGradeSet) {
             throw new IllegalStateException("Средний балл не был установлен.");
         }
-        int studentIdToUse;
-        if (this.studentId == null) {
+
+        int idToAssign;
+
+        if (this.studentId != null) {
+            if (this.studentId <= 0) {
+                throw new IllegalStateException("Номер зачетной книжки должен быть положительным.");
+            }
+            this.studentId = null;
+        }
+        else {
             Random random = new Random();
-            studentIdToUse = random.nextInt(1000) + 1;
-            this.studentId = studentIdToUse;
+            this.studentId = random.nextInt(1000) + 1;
             System.out.println("Сгенерирован случайный Student ID: " + this.studentId);
-        } else if (this.studentId <= 0) {
-            throw new IllegalStateException("Номер зачетной книжки (studentId) должен быть положительным.");
-        } else {
-            studentIdToUse = this.studentId;
         }
         return new Student(this);
     }

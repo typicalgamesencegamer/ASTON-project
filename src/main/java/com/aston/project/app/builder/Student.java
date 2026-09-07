@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Student {
     private final int groupNumber;
-    private final int studentId;
+    private final Integer studentId;
     private final double averageGrade;
 
     public Student(StudentBuilder builder) {
