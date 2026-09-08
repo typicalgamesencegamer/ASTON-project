@@ -1,17 +1,22 @@
 package com.aston.project.app.builder;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Random;
 
 public class StudentBuilder {
     protected int groupNumber;
     protected Integer studentId = null;
     protected double averageGrade;
+
     private double minAverageGrade = 0.0;
     private double maxAverageGrade = 100.0;
 
     private boolean groupNumberSet = false;
     private boolean averageGradeSet = false;
+
+    private static final Set<Integer> USED_IDS = new HashSet<>();
+    private static final Random RANDOM = new Random();
 
     public StudentBuilder setGroupNumber(int groupNumber) {
         if (groupNumber <= 0) {
@@ -40,7 +45,7 @@ public class StudentBuilder {
     }
 
     public int getGroupNumber() {
-        if (!groupNumberSet) throw new IllegalStateException("Group number not set.");
+        if (!groupNumberSet) throw new IllegalStateException("Номер группы не был установлен.");
         return groupNumber;
     }
 
@@ -49,7 +54,7 @@ public class StudentBuilder {
     }
 
     public double getAverageGrade() {
-        if (!averageGradeSet) throw new IllegalStateException("Average grade not set.");
+        if (!averageGradeSet) throw new IllegalStateException("Средний балл не был установлен.");
         return averageGrade;
     }
 
@@ -61,18 +66,15 @@ public class StudentBuilder {
             throw new IllegalStateException("Средний балл не был установлен.");
         }
 
-        int idToAssign;
-
-        if (this.studentId != null) {
-            if (this.studentId <= 0) {
-                throw new IllegalStateException("Номер зачетной книжки должен быть положительным.");
-            }
-            this.studentId = null;
+        if (studentId == null) {
+            do {
+                studentId = RANDOM.nextInt(1000) +1;
+            } while (!USED_IDS.add(studentId));
         }
         else {
-            Random random = new Random();
-            this.studentId = random.nextInt(1000) + 1;
-            System.out.println("Сгенерирован случайный Student ID: " + this.studentId);
+            if(!USED_IDS.add(studentId)){
+                throw new IllegalStateException("Этот номер зачетной книжки уже существует.");
+            }
         }
         return new Student(this);
     }
