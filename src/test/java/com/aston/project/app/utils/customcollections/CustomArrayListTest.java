@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CustomArrayListTest extends TestCase {
     public void testAddAndGet() {
         CustomArrayList<String> list = new CustomArrayList<>();
