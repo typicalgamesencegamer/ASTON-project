@@ -1,4 +1,6 @@
-package com.aston.project.app.builder;
+package com.aston.project.app.builder.model;
+
+import com.aston.project.app.builder.impl.StudentBuilder;
 
 import java.util.Objects;
 

@@ -1,11 +1,21 @@
 package com.aston.project.app;
 
+import com.aston.project.app.builder.model.Student;
+import com.aston.project.app.strategy.impl.JsonReader;
+import com.aston.project.app.utils.customcollections.CustomArrayList;
+import com.google.gson.JsonObject;
+
 import java.util.Scanner;
 
 public class Main {
+    private static final String JSON_PATH = "src/main/resources/students.json";
+
+    private static CustomArrayList<Student> students = new CustomArrayList<>();
+
     static void main() {
         boolean isRunning = true;
         Scanner input = new Scanner(System.in);
+
         System.out.println("Введите q чтобы закрыть программу");
         while (isRunning) {
             System.out.println("Введите номер желаемой опции");
@@ -20,6 +30,11 @@ public class Main {
                     break;
                 case "1":
                     System.out.println("Сортирую данные из JSON файла");
+                    JsonReader reader = new JsonReader(JSON_PATH);
+                    students = reader.fill(0);
+                    for (Student student : students) {
+                        System.out.println(student);
+                    }
                     continue;
                 case "2":
                     System.out.println("Генерирую рандомные данные и сортирую их");

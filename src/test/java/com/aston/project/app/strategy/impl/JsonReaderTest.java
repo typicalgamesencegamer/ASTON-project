@@ -1,6 +1,6 @@
 package com.aston.project.app.strategy.impl;
 
-import com.aston.project.app.builder.Student;
+import com.aston.project.app.builder.model.Student;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -14,10 +14,10 @@ class JsonReaderTest {
     @Test
     void read_shouldReturnListOfStudents_whenFileExists() {
         // given
-        JsonReader reader = new JsonReader("/students.txt");
+        JsonReader reader = new JsonReader("src/test/java/resources/students.json");
 
         // when
-        List<Student> students = reader.read();
+        List<Student> students = reader.fill(0);
 
         // then
         assertNotNull(students);
@@ -40,11 +40,11 @@ class JsonReaderTest {
         System.setOut(new PrintStream(outContent));
 
         // when
-        List<Student> students = reader.read();
+        List<Student> students = reader.fill(0);
 
         // then
         assertNull(students);
-        assertTrue(outContent.toString().contains("File is missing"));
+        assertTrue(outContent.toString().contains("File not found"));
 
         System.setOut(originalOut);
     }

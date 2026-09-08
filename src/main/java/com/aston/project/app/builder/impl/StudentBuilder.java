@@ -1,11 +1,13 @@
-package com.aston.project.app.builder;
+package com.aston.project.app.builder.impl;
+
+import com.aston.project.app.builder.model.Student;
 
 public class StudentBuilder {
     protected int groupNumber;
     protected int studentId;
     protected double averageGrade;
-    private double minAverageGrade = 0.0;
-    private double maxAverageGrade = 100.0;
+    private final double MIN_AVERAGE_GRADE = 0.0;
+    private final double MAX_AVERAGE_GRADE = 100.0;
 
     private boolean groupNumberSet = false;
     private boolean studentIdSet = false;
@@ -30,8 +32,8 @@ public class StudentBuilder {
     }
 
     public StudentBuilder setAverageGrade(double averageGrade) {
-        if (averageGrade < minAverageGrade || averageGrade > maxAverageGrade) {
-            throw new IllegalArgumentException("Средний балл должен быть в диапазоне от " + minAverageGrade + "до " + maxAverageGrade);
+        if (averageGrade < MIN_AVERAGE_GRADE || averageGrade > MAX_AVERAGE_GRADE) {
+            throw new IllegalArgumentException("Средний балл должен быть в диапазоне от " + MIN_AVERAGE_GRADE + "до " + MAX_AVERAGE_GRADE);
         }
         this.averageGrade = averageGrade;
         this.averageGradeSet = true;

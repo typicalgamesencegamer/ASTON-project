@@ -1,10 +1,14 @@
-package com.aston.project.app.builder;
+package com.aston.project.app.student;
+
+import com.aston.project.app.builder.StudentComparators;
+import com.aston.project.app.builder.impl.StudentBuilder;
+import com.aston.project.app.builder.model.Student;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StudentTests {
+public class StudentTest {
     public static void runTests() {
         System.out.println("--- Запуск тестов для Student ---");
         testBuilderAndValidation();

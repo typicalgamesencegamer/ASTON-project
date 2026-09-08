@@ -1,7 +1,7 @@
 package com.aston.project.app.strategy.impl;
 
-import com.aston.project.app.builder.Student;
-import com.aston.project.app.builder.StudentBuilder;
+import com.aston.project.app.builder.model.Student;
+import com.aston.project.app.builder.impl.StudentBuilder;
 import com.aston.project.app.strategy.api.ReadStrategy;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
 
