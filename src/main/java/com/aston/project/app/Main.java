@@ -1,4 +1,4 @@
-package com.aston.project;
+package com.aston.project.app;
 
 import java.util.Scanner;
 
