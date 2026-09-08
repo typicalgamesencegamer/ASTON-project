@@ -1,9 +1,6 @@
 package com.aston.project.app.utils.sort;
 
-import com.aston.project.app.builder.Student;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,8 +11,9 @@ public class CustomSort {
     }
 
     public static <T> List<T> merge(List<T> list, Comparator<? super T> comparator) {
+
         if (list.size() <= 1) {
-            return new ArrayList<>(list);
+            return list;
         }
 
         int mid = list.size() / 2;
