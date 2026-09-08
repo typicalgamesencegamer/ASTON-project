@@ -9,53 +9,45 @@ import java.util.List;
 
 public class CustomSort {
 
-    public CustomSort(){
+    public CustomSort() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static List<Student> merge(List<Student> students, Comparator<Student> comparator){
-        Student[] arr = students.toArray(new Student[0]);
-        Student[] sorted = mergeSort(arr, comparator);
-        return new ArrayList<>(Arrays.asList(sorted));
+    public static <T> List<T> merge(List<T> list, Comparator<? super T> comparator) {
+        if (list.size() <= 1) {
+            return new ArrayList<>(list);
+        }
+
+        int mid = list.size() / 2;
+        List<T> left = merge(list.subList(0, mid), comparator);
+        List<T> right = merge(list.subList(mid, list.size()), comparator);
+
+        return mergeSort(left, right, comparator);
     }
 
-    private static Student[] mergeSort(Student[] arr, Comparator<Student> comparator) {
+    private static <T> List<T> mergeSort(List<T> a, List<T> b, Comparator<? super T> comparator) {
 
-        if (arr.length > 1) {
-            int l = arr.length / 2;
-            Student[] a = mergeSort(Arrays.copyOfRange(arr, 0, l), comparator);
-            Student[] b = mergeSort(Arrays.copyOfRange(arr, l, arr.length), comparator);
-            Student[] res = new Student[a.length + b.length];
-            int
-                    i = 0,
-                    j = 0,
-                    k = 0;
+        List<T> result = new ArrayList<>(a.size() + b.size());
+        int i = 0, j = 0;
 
-            while (i < a.length && j < b.length) {
-                if (comparator.compare(a[i],b[j]) <=0) {
-                    res[k] = a[i];
-                    i++;
-                } else {
-                    res[k] = b[j];
-                    j++;
-                }
-                k++;
-            }
-            while (i < a.length) {
-                res[k] = a[i];
+        while (i < a.size() && j < b.size()) {
+            if (comparator.compare(a.get(i), b.get(j)) <= 0) {
+                result.add(a.get(i));
                 i++;
-                k++;
-            }
-            while (j < b.length) {
-                res[k] = b[j];
+            } else {
+                result.add(b.get(j));
                 j++;
-                k++;
             }
-
-            return res;
-
-        } else {
-            return arr;
         }
+        while (i < a.size()) {
+            result.add(a.get(i));
+            i++;
+        }
+        while (j < b.size()) {
+            result.add(b.get(j));
+            j++;
+        }
+
+        return result;
     }
 }
