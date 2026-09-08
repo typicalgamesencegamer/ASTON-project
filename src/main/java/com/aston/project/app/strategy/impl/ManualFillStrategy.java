@@ -2,7 +2,7 @@ package com.aston.project.app.strategy.impl;
 
 import com.aston.project.app.builder.model.Student;
 import com.aston.project.app.builder.impl.StudentBuilder;
-import com.aston.project.app.strategy.api.ReadStrategy;
+import com.aston.project.app.strategy.api.FillStrategy;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
 
 import java.util.Objects;
@@ -11,7 +11,7 @@ import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
-public class ManualFillStrategy implements ReadStrategy {
+public class ManualFillStrategy implements FillStrategy {
 
     private final Scanner scanner;
 
@@ -25,7 +25,6 @@ public class ManualFillStrategy implements ReadStrategy {
     @Override
     public CustomArrayList<Student> fill(int length) {
         validateLength(length);
-
         return IntStream.range(0, length)
                 .mapToObj(index -> readStudent(index + 1))
                 .collect(

@@ -2,13 +2,13 @@ package com.aston.project.app.strategy.impl;
 
 import com.aston.project.app.builder.model.Student;
 import com.aston.project.app.builder.impl.StudentBuilder;
-import com.aston.project.app.strategy.api.ReadStrategy;
+import com.aston.project.app.strategy.api.FillStrategy;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class RandomFillStrategy implements ReadStrategy {
+public class RandomFillStrategy implements FillStrategy {
 
     private static final int MIN_GROUP_NUMBER = 1;
     private static final int MAX_GROUP_NUMBER = 999;

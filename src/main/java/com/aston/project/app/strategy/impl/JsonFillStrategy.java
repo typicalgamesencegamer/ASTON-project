@@ -1,6 +1,6 @@
 package com.aston.project.app.strategy.impl;
 
-import com.aston.project.app.strategy.api.ReadStrategy;
+import com.aston.project.app.strategy.api.FillStrategy;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 
-public class JsonReader implements ReadStrategy {
+public class JsonFillStrategy implements FillStrategy {
     private final String PATH;
 
-    public JsonReader(String path) {
+    public JsonFillStrategy(String path) {
         this.PATH = path;
     }
 

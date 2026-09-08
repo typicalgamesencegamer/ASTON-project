@@ -9,12 +9,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JsonReaderTest {
+class JsonFillStrategyTest {
 
     @Test
     void read_shouldReturnListOfStudents_whenFileExists() {
         // given
-        JsonReader reader = new JsonReader("src/test/java/resources/students.json");
+        JsonFillStrategy reader = new JsonFillStrategy("src/test/java/resources/students.json");
 
         // when
         List<Student> students = reader.fill(0);
@@ -33,7 +33,7 @@ class JsonReaderTest {
     @Test
     void read_shouldPrintMessageAboutMissingFile() {
         // given
-        JsonReader reader = new JsonReader("/wrongPath.txt");
+        JsonFillStrategy reader = new JsonFillStrategy("/wrongPath.txt");
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
