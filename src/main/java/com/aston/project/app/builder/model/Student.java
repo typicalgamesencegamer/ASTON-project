@@ -5,9 +5,9 @@ import com.aston.project.app.builder.impl.StudentBuilder;
 import java.util.Objects;
 
 public class Student {
-    private final int groupNumber;
-    private final int studentId;
-    private final double averageGrade;
+    private int groupNumber;
+    private int studentId;
+    private double averageGrade;
 
     public Student(StudentBuilder builder) {
         Objects.requireNonNull(builder, "StudentBuilder не должен быть null");
