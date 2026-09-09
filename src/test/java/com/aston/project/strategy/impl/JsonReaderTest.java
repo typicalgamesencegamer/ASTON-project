@@ -15,7 +15,7 @@ class JsonReaderTest {
     @Test
     void read_shouldReturnListOfStudents_whenFileExists() {
         // given
-        JsonReader reader = new JsonReader("/students.txt");
+        JsonReader reader = new JsonReader("/testStudents.txt");
 
         // when
         List<Student> students = reader.read();
@@ -48,5 +48,48 @@ class JsonReaderTest {
         assertTrue(outContent.toString().contains("File is missing"));
 
         System.setOut(originalOut);
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenFileIsEmpty() {
+        JsonReader reader = new JsonReader("/empty.txt");
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        List<Student> students = reader.read();
+
+        assertNull(students);
+        assertTrue(out.toString().contains("File is empty"));
+
+        System.setOut(System.out);
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenStudentListIsNull() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        JsonReader reader = new JsonReader("/nullList.txt");
+        List<Student> students = reader.read();
+
+        assertNull(students);
+        assertTrue(out.toString().contains("Student list is null"));
+
+        System.setOut(System.out);
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenFileIsMalformed() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        JsonReader reader = new JsonReader("/malformed.txt");
+        List<Student> students = reader.read();
+
+        assertNull(students);
+        assertTrue(out.toString().contains("File is malformed"));
+
+        System.setOut(System.out);
     }
 }
