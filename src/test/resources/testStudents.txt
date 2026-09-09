@@ -1,0 +1,127 @@
+[
+  {
+    "groupNumber": 101,
+    "studentId": 1001,
+    "averageGrade": 4.5
+  },
+  {
+    "groupNumber": 101,
+    "studentId": 1002,
+    "averageGrade": 3.8
+  },
+  {
+    "groupNumber": 102,
+    "studentId": 1003,
+    "averageGrade": 4.9
+  },
+  {
+    "groupNumber": 102,
+    "studentId": 1004,
+    "averageGrade": 4.2
+  },
+  {
+    "groupNumber": 103,
+    "studentId": 1005,
+    "averageGrade": 5.0
+  },
+  {
+    "groupNumber": 103,
+    "studentId": 1006,
+    "averageGrade": 3.5
+  },
+  {
+    "groupNumber": 104,
+    "studentId": 1007,
+    "averageGrade": 4.7
+  },
+  {
+    "groupNumber": 104,
+    "studentId": 1008,
+    "averageGrade": 3.9
+  },
+  {
+    "groupNumber": 105,
+    "studentId": 1009,
+    "averageGrade": 4.8
+  },
+  {
+    "groupNumber": 105,
+    "studentId": 1010,
+    "averageGrade": 4.4
+  },
+  {
+    "groupNumber": 106,
+    "studentId": 1011,
+    "averageGrade": 3.6
+  },
+  {
+    "groupNumber": 106,
+    "studentId": 1012,
+    "averageGrade": 4.1
+  },
+  {
+    "groupNumber": 107,
+    "studentId": 1013,
+    "averageGrade": 4.3
+  },
+  {
+    "groupNumber": 107,
+    "studentId": 1014,
+    "averageGrade": 4.6
+  },
+  {
+    "groupNumber": 108,
+    "studentId": 1015,
+    "averageGrade": 5.0
+  },
+  {
+    "groupNumber": 108,
+    "studentId": 1016,
+    "averageGrade": 3.7
+  },
+  {
+    "groupNumber": 109,
+    "studentId": 1017,
+    "averageGrade": 4.0
+  },
+  {
+    "groupNumber": 109,
+    "studentId": 1018,
+    "averageGrade": 4.5
+  },
+  {
+    "groupNumber": 110,
+    "studentId": 1019,
+    "averageGrade": 4.8
+  },
+  {
+    "groupNumber": 110,
+    "studentId": 1020,
+    "averageGrade": 3.9
+  },
+  {
+    "groupNumber": 111,
+    "studentId": 1021,
+    "averageGrade": 4.9
+  },
+  {
+    "groupNumber": 111,
+    "studentId": 1022,
+    "averageGrade": 4.2
+  },
+  {
+    "groupNumber": 112,
+    "studentId": 1023,
+    "averageGrade": 3.8
+  },
+  {
+    "groupNumber": 112,
+    "studentId": 1024,
+    "averageGrade": 4.6
+  },
+  {
+    "groupNumber": 113,
+    "studentId": 1025,
+    "averageGrade": 4.4
+  }
+]
