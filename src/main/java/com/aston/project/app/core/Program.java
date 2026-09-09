@@ -96,7 +96,7 @@ public class Program {
 
     private void additionalSortData() {
         Comparator<Student> comparator = askForComparator();
-//        sortedStudents = CustomAdditionalSort.sort(students, comparator);
+        sortedStudents = CustomAdditionalSort.sort(students, comparator);
     }
     private Comparator<Student> askForComparator() {
         System.out.println("выберите сортировку по полю");
