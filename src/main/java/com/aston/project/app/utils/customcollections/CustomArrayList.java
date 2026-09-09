@@ -14,6 +14,13 @@ public class CustomArrayList<E> implements List<E> {
     private Object[] elements = new Object[DEFAULT_CAPACITY];
     private int size;
 
+    public CustomArrayList<E> copyof(CustomArrayList<E> other) {
+        for (E o : other) {
+            this.add(o);
+        }
+        return this;
+    } 
+    
     @Override
     public int size() {
         return size;
