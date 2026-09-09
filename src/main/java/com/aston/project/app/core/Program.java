@@ -8,6 +8,7 @@ import com.aston.project.app.strategy.impl.ManualFillStrategy;
 import com.aston.project.app.strategy.impl.RandomFillStrategy;
 import com.aston.project.app.strategy.model.DataFiller;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
+import com.aston.project.app.utils.sort.CustomAdditionalSort;
 import com.aston.project.app.utils.sort.CustomSort;
 
 import java.util.Comparator;
@@ -37,7 +38,7 @@ public class Program {
     }
 
     private void printSortedStudents() {
-        if (!studentsExist()) {
+        if (!sortedStudentsExist()) {
             return;
         }
         for (Student student : sortedStudents) {
@@ -53,23 +54,30 @@ public class Program {
         return false;
     }
 
+    private boolean sortedStudentsExist() {
+        if (sortedStudents != null) {
+            return true;
+        }
+        System.out.println("нет отсортированных студентов");
+        return false;
+    }
+
     private void printInfo() {
         System.out.println("Введите q чтобы закрыть программу");
         System.out.println("Введите номер желаемой опции");
-        System.out.println("1. Отсортирвать данные из JSON файла");
-        System.out.println("2. Отсортирвать рандомные данные");
-        System.out.println("3. Отсортирвать введённые данные");
-        System.out.println("4. Вывести массив данных");
-        System.out.println("5. Вывести отсортированный массив данных\n");
+        System.out.println("1. Заполнить данными из JSON файла");
+        System.out.println("2. Заполнить рандомными данными");
+        System.out.println("3. Заполнить введёнными данными");
+        System.out.println("4. Отсортировать массив данных");
+        System.out.println("5. Отсортировать массив данных дополнительной сортировкой");
+        System.out.println("6. Вывести массив данных");
+        System.out.println("7. Вывести отсортированный массив данных\n");
     }
 
-    private List<Student> process(FillStrategy strategy) throws RuntimeException {
+    private void fillData(FillStrategy strategy) throws RuntimeException {
         int length = askForLength();
-        Comparator<Student> comparator = askForComparator();
         dataFiller.setFillStrategy(strategy);
         students = dataFiller.fillData(length);
-        sortedStudents = CustomSort.merge(students, comparator);
-        return sortedStudents;
     }
 
     private int askForLength() {
@@ -81,6 +89,15 @@ public class Program {
         return count;
     }
 
+    private void sortData() {
+        Comparator<Student> comparator = askForComparator();
+        sortedStudents = CustomSort.merge(students, comparator);
+    }
+
+    private void additionalSortData() {
+        Comparator<Student> comparator = askForComparator();
+//        sortedStudents = CustomAdditionalSort.sort(students, comparator);
+    }
     private Comparator<Student> askForComparator() {
         System.out.println("выберите сортировку по полю");
         System.out.println("1. По номеру группы");
@@ -111,7 +128,7 @@ public class Program {
                 case "1":
                     System.out.println("Чтение данных из JSON файл");
                     try {
-                        process(new JsonFillStrategy(JSON_PATH));
+                        fillData(new JsonFillStrategy(JSON_PATH));
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -120,7 +137,7 @@ public class Program {
                 case "2":
                     System.out.println("Генерация рандомных данных");
                     try {
-                        process(new RandomFillStrategy());
+                        fillData(new RandomFillStrategy());
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -129,17 +146,27 @@ public class Program {
                 case "3":
                     System.out.println("Ручной ввод");
                     try {
-                        process(new ManualFillStrategy(input));
+                        fillData(new ManualFillStrategy(input));
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
                     continue;
                 case "4":
-                    printStudents();
+                    sortData();
+                    System.out.println("Сортировка выполнена");
                     System.out.println();
                     continue;
                 case "5":
+                    additionalSortData();
+                    System.out.println("Сортировка выполнена");
+                    System.out.println();
+                    continue;
+                case "6":
+                    printStudents();
+                    System.out.println();
+                    continue;
+                case "7":
                     printSortedStudents();
                     System.out.println();
                     continue;
