@@ -8,7 +8,6 @@ import com.aston.project.app.strategy.impl.ManualFillStrategy;
 import com.aston.project.app.strategy.impl.RandomFillStrategy;
 import com.aston.project.app.strategy.model.DataFiller;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
-import com.aston.project.app.utils.sort.CustomAdditionalSort;
 import com.aston.project.app.utils.sort.CustomSort;
 
 import java.util.Comparator;
@@ -22,7 +21,7 @@ public class Program {
     private CustomArrayList<Student> students;
     private List<Student> sortedStudents;
 
-    private final String JSON_PATH = "src/main/resources/students.json";
+    private final String JSON_PATH = "/students.json";
 
     public Program() {
 
@@ -75,7 +74,13 @@ public class Program {
     }
 
     private void fillData(FillStrategy strategy) throws RuntimeException {
-        int length = askForLength();
+        boolean isJsonFillStrategy = strategy instanceof JsonFillStrategy;
+        int length;
+        if (isJsonFillStrategy) {
+            length = askForJsonLength();
+        } else {
+            length = askForLength();
+        }
         dataFiller.setFillStrategy(strategy);
         students = dataFiller.fillData(length);
     }
@@ -89,6 +94,15 @@ public class Program {
         return count;
     }
 
+    private int askForJsonLength() {
+        System.out.println("Введите количество элементов(0 - прочитать весь файл)");
+        int count = input.nextInt();
+        if (count < 0) {
+            throw new RuntimeException("Количество элементов не может быть отрицательным");
+        }
+        return count;
+    }
+
     private void sortData() {
         Comparator<Student> comparator = askForComparator();
         sortedStudents = CustomSort.merge(students, comparator);
@@ -98,6 +112,7 @@ public class Program {
         Comparator<Student> comparator = askForComparator();
 //        sortedStudents = CustomAdditionalSort.sort(students, comparator);
     }
+
     private Comparator<Student> askForComparator() {
         System.out.println("выберите сортировку по полю");
         System.out.println("1. По номеру группы");
