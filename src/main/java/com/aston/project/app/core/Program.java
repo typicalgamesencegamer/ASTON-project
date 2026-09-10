@@ -75,16 +75,19 @@ public class Program {
     }
 
     private void fillData(FillStrategy strategy) throws RuntimeException {
+        if (strategy instanceof JsonFillStrategy) {
+            System.out.println("Введите 0 для того чтобы прочитать весь файл");
+        }
         int length = askForLength();
         dataFiller.setFillStrategy(strategy);
         students = dataFiller.fillData(length);
     }
 
     private int askForLength() {
-        System.out.println("Введите количество элементов");
+        System.out.println("Введите количество элементов.");
         int count = input.nextInt();
-        if (count <= 0) {
-            throw new RuntimeException("Количество элементов должно быть больше или равно 1");
+        if (count < 0) {
+            throw new RuntimeException("Количество элементов должно быть положительным числом");
         }
         return count;
     }
@@ -96,7 +99,7 @@ public class Program {
 
     private void additionalSortData() {
         Comparator<Student> comparator = askForComparator();
-//        sortedStudents = CustomAdditionalSort.sort(students, comparator);
+        sortedStudents = CustomAdditionalSort.sort(students, comparator);
     }
     private Comparator<Student> askForComparator() {
         System.out.println("выберите сортировку по полю");
