@@ -20,7 +20,7 @@ public class FileResultWriter {
                             .toList(),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
-
+        }
         catch (IOException e) {
             System.out.println("Ошибка при записи в файл: " + e.getMessage());
         }
