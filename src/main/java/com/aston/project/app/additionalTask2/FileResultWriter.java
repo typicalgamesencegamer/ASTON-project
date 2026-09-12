@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
+import java.util.Scanner;
 
 public class FileResultWriter {
 
@@ -13,13 +14,28 @@ public class FileResultWriter {
     private FileResultWriter() {
     }
 
-    public static void writeToFile(Collection<?> collection) {
+    public static void offerToSave(Collection<?> collection) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Записать результат в файл? (y/n)");
+
+        String answer = scanner.nextLine();
+
+        if (answer.equalsIgnoreCase("y")) {
+            writeToFile(collection);
+        } else if (answer.equalsIgnoreCase("n")) {
+            System.out.println("Результат не записан в файл.");
+        } else {
+            System.out.println("Некорректный выбор.");
+        }
+    }
+    private static void writeToFile(Collection<?> collection) {
         try {
-            Files.write(FILE_PATH, collection.stream()
-                            .map(element -> element + System.lineSeparator())
-                            .toList(),
+            Files.write(FILE_PATH, collection.stream().map(element -> element +
+                            System.lineSeparator()).toList(),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
+            System.out.println("Результат добавлен в файл: " + FILE_PATH);
         }
         catch (IOException e) {
             System.out.println("Ошибка при записи в файл: " + e.getMessage());
