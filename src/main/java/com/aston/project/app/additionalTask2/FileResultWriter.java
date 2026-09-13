@@ -17,16 +17,14 @@ public class FileResultWriter {
     public static void offerToSave(Collection<?> collection) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Записать результат в файл? (y/n)");
+        System.out.println("Записать результат в файл? (y/n) - (default: n)");
 
         String answer = scanner.nextLine();
 
         if (answer.equalsIgnoreCase("y")) {
             writeToFile(collection);
-        } else if (answer.equalsIgnoreCase("n")) {
-            System.out.println("Результат не записан в файл.");
         } else {
-            System.out.println("Некорректный выбор.");
+            System.out.println("Результат не записан в файл.");
         }
     }
     private static void writeToFile(Collection<?> collection) {
