@@ -7,15 +7,22 @@ import com.aston.project.app.strategy.impl.JsonFillStrategy;
 import com.aston.project.app.strategy.impl.ManualFillStrategy;
 import com.aston.project.app.strategy.impl.RandomFillStrategy;
 import com.aston.project.app.strategy.model.DataFiller;
+import com.aston.project.app.utils.StudentUtils;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
+import com.aston.project.app.utils.multithreading.ElementOccurrenceCounter;
+import com.aston.project.app.utils.sort.CustomAdditionalSort;
 import com.aston.project.app.utils.sort.CustomSort;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.aston.project.app.utils.filewriter.FileResultWriter.offerToSave;
+
 public class Program {
     private boolean isRunning = true;
+    private boolean isSorted = false;
+    private int occurance = 0;
     private Scanner input = new Scanner(System.in);
     private DataFiller dataFiller = new DataFiller();
     private CustomArrayList<Student> students;
@@ -70,10 +77,11 @@ public class Program {
         System.out.println("4. Отсортировать массив данных");
         System.out.println("5. Отсортировать массив данных дополнительной сортировкой");
         System.out.println("6. Вывести массив данных");
-        System.out.println("7. Вывести отсортированный массив данных\n");
+        System.out.println("7. Вывести отсортированный массив данных");
+        System.out.println("8. Найти количество вхождений элемента\n");
     }
 
-    private void fillData(FillStrategy strategy) throws RuntimeException {
+    private void fillStudents(FillStrategy strategy) throws RuntimeException {
         boolean isJsonFillStrategy = strategy instanceof JsonFillStrategy;
         int length;
         if (isJsonFillStrategy) {
@@ -103,14 +111,28 @@ public class Program {
         return count;
     }
 
-    private void sortData() {
-        Comparator<Student> comparator = askForComparator();
-        sortedStudents = CustomSort.merge(students, comparator);
+    private boolean sortData() {
+        if (students != null) {
+            Comparator<Student> comparator = askForComparator();
+            sortedStudents = CustomSort.merge(students, comparator);
+            return true;
+        }
+        else {
+            System.out.println("Нет данных");
+            return false;
+        }
     }
 
-    private void additionalSortData() {
-        Comparator<Student> comparator = askForComparator();
-//        sortedStudents = CustomAdditionalSort.sort(students, comparator);
+    private boolean additionalSortData() {
+        if (students != null) {
+            Comparator<Student> comparator = askForComparator();
+            sortedStudents = CustomAdditionalSort.sort(students, comparator);
+            return true;
+        }
+        else {
+            System.out.println("Нет данных");
+            return false;
+        }
     }
 
     private Comparator<Student> askForComparator() {
@@ -130,6 +152,7 @@ public class Program {
         };
     }
 
+
     public void start() {
         while (isRunning) {
             printInfo();
@@ -143,7 +166,7 @@ public class Program {
                 case "1":
                     System.out.println("Чтение данных из JSON файл");
                     try {
-                        fillData(new JsonFillStrategy(JSON_PATH));
+                        fillStudents(new JsonFillStrategy(JSON_PATH));
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -152,7 +175,7 @@ public class Program {
                 case "2":
                     System.out.println("Генерация рандомных данных");
                     try {
-                        fillData(new RandomFillStrategy());
+                        fillStudents(new RandomFillStrategy());
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -161,20 +184,26 @@ public class Program {
                 case "3":
                     System.out.println("Ручной ввод");
                     try {
-                        fillData(new ManualFillStrategy(input));
+                        fillStudents(new ManualFillStrategy(input));
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
                     continue;
                 case "4":
-                    sortData();
-                    System.out.println("Сортировка выполнена");
+                    isSorted = sortData();
+                    if (isSorted) {
+                        System.out.println("Сортировка выполнена");
+                        offerToSave(sortedStudents);
+                    }
                     System.out.println();
                     continue;
                 case "5":
-                    additionalSortData();
-                    System.out.println("Сортировка выполнена");
+                    isSorted = additionalSortData();
+                    if (isSorted) {
+                        System.out.println("Сортировка выполнена");
+                        offerToSave(sortedStudents);
+                    }
                     System.out.println();
                     continue;
                 case "6":
@@ -183,6 +212,17 @@ public class Program {
                     continue;
                 case "7":
                     printSortedStudents();
+                    System.out.println();
+                    continue;
+                case "8":
+                    if (students != null) {
+                        Student studentToFind = StudentUtils.askUserForStudent(input);
+                        occurance = ElementOccurrenceCounter.countOccurrences(students, studentToFind, 3);
+                        System.out.println("Количество вхождений = " + occurance);
+                    }
+                    else {
+                        System.out.println("Нет студентов");
+                    }
                     System.out.println();
                     continue;
                 default:

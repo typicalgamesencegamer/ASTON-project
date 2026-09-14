@@ -1,7 +1,8 @@
-package com.aston.project.app.additionalTask2;
+package com.aston.project.app.utils.filewriter;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
@@ -32,7 +33,8 @@ public class FileResultWriter {
             Files.write(FILE_PATH, collection.stream().map(element -> element +
                             System.lineSeparator()).toList(),
                     StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND);
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
             System.out.println("Результат добавлен в файл: " + FILE_PATH);
         }
         catch (IOException e) {
