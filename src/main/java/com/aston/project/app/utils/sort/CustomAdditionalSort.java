@@ -47,13 +47,13 @@ public class CustomAdditionalSort {
         }
         if (comparator == StudentComparators.COMPARE_BY_AVERAGE_GRADE) {
             for (Student student : students) {
-                if ((student.getAverageGrade() * 100) % 2 == 0) {
+                if ((student.getAverageGrade() * 10) % 2 == 0) {
                     temporaryList.add(student);
                 }
             }
             List<Student> sortedTemp = CustomSort.merge(temporaryList, comparator);
             for (int i = 0, j = 0; i < students.size(); i++) {
-                if ((students.get(i).getAverageGrade() * 100) % 2 == 0) {
+                if ((students.get(i).getAverageGrade() * 10) % 2 == 0) {
                     students.set(i, sortedTemp.get(j));
                     j++;
                 }
