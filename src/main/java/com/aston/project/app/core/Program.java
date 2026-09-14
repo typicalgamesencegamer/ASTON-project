@@ -180,6 +180,7 @@ public class Program {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
+                    input.nextLine();
                     continue;
                 case "2":
                     System.out.println("Генерация рандомных данных");
@@ -189,6 +190,7 @@ public class Program {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
+                    input.nextLine();
                     continue;
                 case "3":
                     System.out.println("Ручной ввод");
@@ -198,12 +200,14 @@ public class Program {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
+                    input.nextLine();
                     continue;
                 case "4":
                     isSorted = sortData();
                     if (isSorted) {
                         System.out.println("Сортировка выполнена");
                         offerToSave(sortedStudents);
+                        input.nextLine();
                     }
                     System.out.println();
                     continue;
@@ -212,6 +216,7 @@ public class Program {
                     if (isSorted) {
                         System.out.println("Сортировка выполнена");
                         offerToSave(sortedStudents);
+                        input.nextLine();
                     }
                     System.out.println();
                     continue;
