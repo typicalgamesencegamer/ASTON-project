@@ -8,7 +8,6 @@ import com.aston.project.app.strategy.impl.ManualFillStrategy;
 import com.aston.project.app.strategy.impl.RandomFillStrategy;
 import com.aston.project.app.strategy.model.DataFiller;
 import com.aston.project.app.utils.customcollections.CustomArrayList;
-import com.aston.project.app.utils.sort.CustomAdditionalSort;
 import com.aston.project.app.utils.sort.CustomSort;
 
 import java.util.Comparator;
@@ -22,7 +21,7 @@ public class Program {
     private CustomArrayList<Student> students;
     private List<Student> sortedStudents;
 
-    private final String JSON_PATH = "src/main/resources/students.json";
+    private final String JSON_PATH = "/students.json";
 
     public Program() {
 
@@ -75,19 +74,31 @@ public class Program {
     }
 
     private void fillData(FillStrategy strategy) throws RuntimeException {
-        if (strategy instanceof JsonFillStrategy) {
-            System.out.println("Введите 0 для того чтобы прочитать весь файл");
+        boolean isJsonFillStrategy = strategy instanceof JsonFillStrategy;
+        int length;
+        if (isJsonFillStrategy) {
+            length = askForJsonLength();
+        } else {
+            length = askForLength();
         }
-        int length = askForLength();
         dataFiller.setFillStrategy(strategy);
         students = dataFiller.fillData(length);
     }
 
     private int askForLength() {
-        System.out.println("Введите количество элементов.");
+        System.out.println("Введите количество элементов");
+        int count = input.nextInt();
+        if (count <= 0) {
+            throw new RuntimeException("Количество элементов должно быть больше или равно 1");
+        }
+        return count;
+    }
+
+    private int askForJsonLength() {
+        System.out.println("Введите количество элементов(0 - прочитать весь файл)");
         int count = input.nextInt();
         if (count < 0) {
-            throw new RuntimeException("Количество элементов должно быть положительным числом");
+            throw new RuntimeException("Количество элементов не может быть отрицательным");
         }
         return count;
     }
@@ -99,8 +110,9 @@ public class Program {
 
     private void additionalSortData() {
         Comparator<Student> comparator = askForComparator();
-        sortedStudents = CustomAdditionalSort.sort(students, comparator);
+//        sortedStudents = CustomAdditionalSort.sort(students, comparator);
     }
+
     private Comparator<Student> askForComparator() {
         System.out.println("выберите сортировку по полю");
         System.out.println("1. По номеру группы");

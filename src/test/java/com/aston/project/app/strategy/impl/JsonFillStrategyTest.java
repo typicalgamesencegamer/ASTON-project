@@ -1,6 +1,8 @@
 package com.aston.project.app.strategy.impl;
 
 import com.aston.project.app.builder.model.Student;
+import com.aston.project.app.exception.ErrorCode;
+import com.aston.project.app.exception.FillStrategyException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -9,12 +11,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JsonFillStrategyTest {
+class JsonReaderTest {
 
     @Test
     void read_shouldReturnListOfStudents_whenFileExists() {
         // given
-        JsonFillStrategy reader = new JsonFillStrategy("src/test/java/resources/students.json");
+        JsonFillStrategy reader = new JsonFillStrategy("/testStudents.json");
 
         // when
         List<Student> students = reader.fill(0);
@@ -31,21 +33,62 @@ class JsonFillStrategyTest {
     }
 
     @Test
-    void read_shouldPrintMessageAboutMissingFile() {
-        // given
-        JsonFillStrategy reader = new JsonFillStrategy("/wrongPath.txt");
+    void fill_shouldThrowExceptionWithFileMissingCode_whenFileNotFound() {
+        JsonFillStrategy reader = new JsonFillStrategy("/wrongPath.json");
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
+        FillStrategyException exception = assertThrows(
+                FillStrategyException.class,
+                () -> reader.fill(0)
+        );
 
-        // when
-        List<Student> students = reader.fill(0);
+        assertEquals(ErrorCode.FILE_MISSING, exception.getErrorCode());
+    }
 
-        // then
-        assertNull(students);
-        assertTrue(outContent.toString().contains("File not found"));
+    @Test
+    void read_shouldPrintMessage_whenFileIsEmpty() {
+        JsonFillStrategy reader = new JsonFillStrategy("/emptyFile.json");
 
-        System.setOut(originalOut);
+        FillStrategyException exception = assertThrows(
+                FillStrategyException.class,
+                () -> reader.fill(0)
+        );
+
+        assertEquals(ErrorCode.FILE_EMPTY, exception.getErrorCode());
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenStudentListIsNull() {
+        JsonFillStrategy reader = new JsonFillStrategy("/nullList.json");
+
+        FillStrategyException exception = assertThrows(
+                FillStrategyException.class,
+                () -> reader.fill(0)
+        );
+
+        assertEquals(ErrorCode.LIST_NULL, exception.getErrorCode());
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenFileIsMalformed() {
+        JsonFillStrategy reader = new JsonFillStrategy("/malformed.json");
+
+        FillStrategyException exception = assertThrows(
+                FillStrategyException.class,
+                () -> reader.fill(0)
+        );
+
+        assertEquals(ErrorCode.MALFORMED_JSON, exception.getErrorCode());
+    }
+
+    @Test
+    void read_shouldPrintMessage_whenResultIsEmpty() {
+        JsonFillStrategy reader = new JsonFillStrategy("/emptyList.json");
+
+        FillStrategyException exception = assertThrows(
+                FillStrategyException.class,
+                () -> reader.fill(0)
+        );
+
+        assertEquals(ErrorCode.EMPTY_LIST, exception.getErrorCode());
     }
 }
