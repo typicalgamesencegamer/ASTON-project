@@ -3,7 +3,7 @@ package com.aston.project.app;
 import com.aston.project.app.core.Program;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         Program program = new Program();
         program.start();
     }

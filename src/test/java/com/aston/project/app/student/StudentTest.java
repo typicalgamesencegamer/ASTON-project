@@ -3,211 +3,174 @@ package com.aston.project.app.student;
 import com.aston.project.app.builder.StudentComparators;
 import com.aston.project.app.builder.impl.StudentBuilder;
 import com.aston.project.app.builder.model.Student;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class StudentTest {
-    public static void runTests() {
-        System.out.println("--- Запуск тестов для Student ---");
-        testBuilderAndValidation();
-        testComparators();
-        testEqualsAndHashCode();
-        System.out.println("--- Тесты завершены ---");
-    }
+import static org.junit.jupiter.api.Assertions.*;
 
-    private static void testBuilderAndValidation() {
-        System.out.println("\n--- Тест Builder'а и валидации ---");
-        boolean allPassed = true;
+@DisplayName("Тесты для класса Student")
+class StudentTest {
 
-        try {
-            Student student1 = new StudentBuilder()
+    @Nested
+    @DisplayName("Тесты Builder'а и валидации")
+    class BuilderAndValidationTests {
+
+        @Test
+        @DisplayName("Успешное создание студента через Builder")
+        void shouldCreateStudentSuccessfully() {
+            Student student = new StudentBuilder()
                     .setGroupNumber(101)
                     .setStudentId(12345)
-                    .setAverageGrade(85.5)
+                    .setAverageGrade(4.7)
                     .build();
-            if (!student1.toString().contains("groupNumber=101") ||
-                    !student1.toString().contains("studentId=12345") ||
-                    !student1.toString().contains("averageGrade=85.5")) {
-                System.out.println("FAIL: Успешное создание не соответствует ожиданиям.");
-                allPassed = false;
-            }
 
-            else {
-                System.out.println("PASS: Успешное создание студента.");
-            }
-
-        } catch (Exception e) {
-            System.out.println("FAIL: Неожиданная ошибка при успешном создании: " + e.getMessage());
-            allPassed = false;
+            assertEquals(101, student.getGroupNumber());
+            assertEquals(12345, student.getStudentId());
+            assertEquals(4.7, student.getAverageGrade());
         }
 
-        try {
-            new StudentBuilder().setGroupNumber(-1).setStudentId(1).setAverageGrade(80).build();
-            System.out.println("FAIL: Ошибка валидации номера группы не сработала.");
-            allPassed = false;
-        } catch (IllegalArgumentException e) {
-            System.out.println("PASS: Корректно обработана ошибка валидации номера группы: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("FAIL: Сработало не то исключение при ошибке группы: " + e.getMessage());
-            allPassed = false;
+        @Test
+        @DisplayName("Ошибка валидации: отрицательный номер группы")
+        void shouldThrowWhenGroupNumberIsNegative() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    new StudentBuilder()
+                            .setGroupNumber(-1)
+                            .setStudentId(1)
+                            .setAverageGrade(80)
+                            .build());
         }
 
-        try {
-            new StudentBuilder().setGroupNumber(1).setStudentId(0).setAverageGrade(80).build();
-            System.out.println("FAIL: Ошибка валидации номера зачетки не сработала.");
-            allPassed = false;
-        } catch (IllegalArgumentException e) {
-            System.out.println("PASS: Корректно обработана ошибка валидации номера зачетки: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("FAIL: Сработало не то исключение при ошибке зачетки: " + e.getMessage());
-            allPassed = false;
+        @Test
+        @DisplayName("Ошибка валидации: нулевой номер зачётки")
+        void shouldThrowWhenStudentIdIsZero() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    new StudentBuilder()
+                            .setGroupNumber(1)
+                            .setStudentId(0)
+                            .setAverageGrade(80)
+                            .build());
         }
 
-        try {
-            new StudentBuilder().setGroupNumber(1).setStudentId(1).setAverageGrade(-10.0).build();
-            System.out.println("FAIL: Ошибка валидации среднего балла (низкий) не сработала.");
-            allPassed = false;
-        } catch (IllegalArgumentException e) {
-            System.out.println("PASS: Корректно обработана ошибка валидации среднего балла (низкий): " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("FAIL: Сработало не то исключение при ошибке среднего балла (низкий): " + e.getMessage());
-            allPassed = false;
+        @Test
+        @DisplayName("Ошибка валидации: средний балл ниже 0")
+        void shouldThrowWhenAverageGradeIsTooLow() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    new StudentBuilder()
+                            .setGroupNumber(1)
+                            .setStudentId(1)
+                            .setAverageGrade(-10.0)
+                            .build());
         }
 
-        try {
-            new StudentBuilder().setGroupNumber(1).setStudentId(1).setAverageGrade(110.0).build();
-            System.out.println("FAIL: Ошибка валидации среднего балла (высокий) не сработала.");
-            allPassed = false;
-        } catch (IllegalArgumentException e) {
-            System.out.println("PASS: Корректно обработана ошибка валидации среднего балла (высокий): " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("FAIL: Сработало не то исключение при ошибке среднего балла (высокий): " + e.getMessage());
-            allPassed = false;
-        }
-
-        if(allPassed) {
-            System.out.println("Результат: Все тесты Builder'а и валидации пройдены.");
-        } else {
-            System.out.println("Результат: Некоторые тесты Builder'а и валидации НЕ пройдены.");
+        @Test
+        @DisplayName("Ошибка валидации: средний балл выше 100")
+        void shouldThrowWhenAverageGradeIsTooHigh() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    new StudentBuilder()
+                            .setGroupNumber(1)
+                            .setStudentId(1)
+                            .setAverageGrade(110.0)
+                            .build());
         }
     }
 
-    private static void testComparators() {
-        System.out.println("\n--- Тест компараторов ---");
-        List<Student> students = new ArrayList<>();
-        students.add(new StudentBuilder().setGroupNumber(102).setStudentId(54321).setAverageGrade(75.0).build());
-        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build());
-        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(67890).setAverageGrade(92.1).build());
-        students.add(new StudentBuilder().setGroupNumber(103).setStudentId(98765).setAverageGrade(75.0).build());
+    @Nested
+    @DisplayName("Тесты компараторов")
+    class ComparatorTests {
 
-        boolean allPassed = true;
-
-        Collections.sort(students, StudentComparators.COMPARE_BY_GROUP_NUMBER);
-        if (students.get(0).getGroupNumber() != 101 || students.get(1).getGroupNumber() != 101 || students.get(2).getGroupNumber() != 102 || students.get(3).getGroupNumber() != 103) {
-            System.out.println("FAIL: Сортировка по номеру группы неверна.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: Сортировка по номеру группы верна.");
+        private List<Student> createStudents() {
+            List<Student> students = new ArrayList<>();
+            students.add(new StudentBuilder().setGroupNumber(102).setStudentId(54321).setAverageGrade(5.0).build());
+            students.add(new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build());
+            students.add(new StudentBuilder().setGroupNumber(101).setStudentId(67890).setAverageGrade(3.1).build());
+            students.add(new StudentBuilder().setGroupNumber(103).setStudentId(98765).setAverageGrade(2.6).build());
+            return students;
         }
 
-        System.out.println("Студенты после сортировки по группе: " + students);
+        @Test
+        @DisplayName("Сортировка по номеру группы")
+        void shouldSortByGroupNumber() {
+            List<Student> students = createStudents();
 
-        Collections.sort(students, StudentComparators.COMPARE_BY_STUDENT_ID);
-        if (students.get(0).getStudentId() != 12345 || students.get(1).getStudentId() != 54321 || students.get(2).getStudentId() != 67890 || students.get(3).getStudentId() != 98765) {
-            System.out.println("FAIL: Сортировка по ID неверна.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: Сортировка по ID верна.");
+            students.sort(StudentComparators.COMPARE_BY_GROUP_NUMBER);
+
+            assertEquals(101, students.get(0).getGroupNumber());
+            assertEquals(101, students.get(1).getGroupNumber());
+            assertEquals(102, students.get(2).getGroupNumber());
+            assertEquals(103, students.get(3).getGroupNumber());
         }
 
-        System.out.println("Студенты после сортировки по ID: " + students);
+        @Test
+        @DisplayName("Сортировка по ID студента")
+        void shouldSortByStudentId() {
+            List<Student> students = createStudents();
 
-        Collections.sort(students, StudentComparators.COMPARE_BY_AVERAGE_GRADE);
+            students.sort(StudentComparators.COMPARE_BY_STUDENT_ID);
 
-        if (students.get(0).getAverageGrade() != 75.0 || students.get(1).getAverageGrade() != 75.0 || students.get(2).getAverageGrade() != 85.5 || students.get(3).getAverageGrade() != 92.1) {
-            System.out.println("FAIL: Сортировка по среднему баллу неверна (первые 2).");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: Сортировка по среднему баллу верна (первые 2).");
+            assertEquals(12345, students.get(0).getStudentId());
+            assertEquals(54321, students.get(1).getStudentId());
+            assertEquals(67890, students.get(2).getStudentId());
+            assertEquals(98765, students.get(3).getStudentId());
         }
 
-        System.out.println("Студенты после сортировки по среднему баллу: " + students);
+        @Test
+        @DisplayName("Сортировка по среднему баллу")
+        void shouldSortByAverageGrade() {
+            List<Student> students = createStudents();
 
-        if(allPassed) {
-            System.out.println("Результат: Все тесты компараторов пройдены.");
-        } else {
-            System.out.println("Результат: Некоторые тесты компараторов НЕ пройдены.");
-        }
-    }
+            students.sort(StudentComparators.COMPARE_BY_AVERAGE_GRADE);
 
-    private static void testEqualsAndHashCode() {
-        System.out.println("\n--- Тест equals() и hashCode() ---");
-        boolean allPassed = true;
-
-        Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build();
-        Student s2 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build();
-        Student s3 = new StudentBuilder().setGroupNumber(102).setStudentId(12345).setAverageGrade(85.5).build();
-        Student s4 = s1;
-
-        if (!s1.equals(s4)) {
-            System.out.println("FAIL: equals() не сработал для той же ссылки.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: equals() работает для той же ссылки.");
-        }
-
-        if (!s1.equals(s2)) {
-            System.out.println("FAIL: equals() не сработал для равных объектов.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: equals() работает для равных объектов.");
-        }
-
-        if (s1.equals(s3)) {
-            System.out.println("FAIL: equals() сработал для неравных объектов (разная группа).");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: equals() не работает для неравных объектов (разная группа).");
-        }
-
-        if (s1.equals(null)) {
-            System.out.println("FAIL: equals() сработал для null.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: equals() не работает для null.");
-        }
-
-        if (s1.hashCode() != s4.hashCode()) {
-            System.out.println("FAIL: hashCode() не совпадает для той же ссылки.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: hashCode() совпадает для той же ссылки.");
-        }
-
-        if (s1.hashCode() != s2.hashCode()) {
-            System.out.println("FAIL: hashCode() не совпадает для равных объектов.");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: hashCode() совпадает для равных объектов.");
-        }
-
-        if (s1.hashCode() == s3.hashCode()) {
-            System.out.println("FAIL: hashCode() совпадает для неравных объектов (разная группа).");
-            allPassed = false;
-        } else {
-            System.out.println("PASS: hashCode() не совпадает для неравных объектов (разная группа).");
-        }
-
-        if(allPassed) {
-            System.out.println("Результат: Все тесты equals() и hashCode() пройдены.");
-        } else {
-            System.out.println("Результат: Некоторые тесты equals() и hashCode() НЕ пройдены.");
+            assertEquals(2.6, students.get(0).getAverageGrade());
+            assertEquals(3.1, students.get(1).getAverageGrade());
+            assertEquals(4.5, students.get(2).getAverageGrade());
+            assertEquals(5.0, students.get(3).getAverageGrade());
         }
     }
 
-    //public static void main(String[] args) {
-    //    StudentTests.runTests();
-    //}
+    @Nested
+    @DisplayName("Тесты equals() и hashCode()")
+    class EqualsAndHashCodeTests {
+
+        @Test
+        @DisplayName("equals() возвращает true для той же ссылки")
+        void shouldReturnTrueForSameReference() {
+            Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build();
+            Student s4 = s1;
+
+            assertEquals(s4, s1);
+            assertEquals(s4.hashCode(), s1.hashCode());
+        }
+
+        @Test
+        @DisplayName("equals() возвращает true для равных объектов")
+        void shouldReturnTrueForEqualObjects() {
+            Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(3.5).build();
+            Student s2 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(3.5).build();
+
+            assertEquals(s2, s1);
+            assertEquals(s2.hashCode(), s1.hashCode());
+        }
+
+        @Test
+        @DisplayName("equals() возвращает false для разных групп")
+        void shouldReturnFalseForDifferentGroups() {
+            Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build();
+            Student s3 = new StudentBuilder().setGroupNumber(102).setStudentId(12345).setAverageGrade(1.5).build();
+
+            assertNotEquals(s3, s1);
+        }
+
+        @Test
+        @DisplayName("equals() возвращает false для null")
+        void shouldReturnFalseForNull() {
+            Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build();
+
+            assertNotEquals(null, s1);
+        }
+    }
 }
+

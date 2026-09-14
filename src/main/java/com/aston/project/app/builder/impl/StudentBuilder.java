@@ -7,7 +7,7 @@ public class StudentBuilder {
     protected int studentId;
     protected double averageGrade;
     private final double MIN_AVERAGE_GRADE = 0.0;
-    private final double MAX_AVERAGE_GRADE = 100.0;
+    private final double MAX_AVERAGE_GRADE = 5.0;
 
     private boolean groupNumberSet = false;
     private boolean studentIdSet = false;
