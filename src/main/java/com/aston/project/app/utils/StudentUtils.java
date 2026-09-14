@@ -11,7 +11,7 @@ public class StudentUtils {
     private static Scanner scanner;
 
     public static Student askUserForStudent(Scanner scnr) {
-        scanner =  scnr;
+        scanner = scnr;
         return readStudent();
     }
 

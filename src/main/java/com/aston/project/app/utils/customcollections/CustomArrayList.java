@@ -19,8 +19,8 @@ public class CustomArrayList<E> implements List<E> {
             this.add(o);
         }
         return this;
-    } 
-    
+    }
+
     @Override
     public int size() {
         return size;

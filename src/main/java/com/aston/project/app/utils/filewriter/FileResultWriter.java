@@ -2,7 +2,6 @@ package com.aston.project.app.utils.filewriter;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
@@ -28,6 +27,7 @@ public class FileResultWriter {
             System.out.println("Результат не записан в файл.");
         }
     }
+
     private static void writeToFile(Collection<?> collection) {
         try {
             Files.write(FILE_PATH, collection.stream().map(element -> element +
@@ -36,8 +36,7 @@ public class FileResultWriter {
                     StandardOpenOption.WRITE,
                     StandardOpenOption.TRUNCATE_EXISTING);
             System.out.println("Результат добавлен в файл: " + FILE_PATH);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Ошибка при записи в файл: " + e.getMessage());
         }
     }

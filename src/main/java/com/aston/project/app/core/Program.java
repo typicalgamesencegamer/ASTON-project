@@ -127,8 +127,7 @@ public class Program {
             Comparator<Student> comparator = askForComparator();
             sortedStudents = CustomSort.merge(students, comparator);
             return true;
-        }
-        else {
+        } else {
             System.out.println("Нет данных");
             return false;
         }
@@ -139,8 +138,7 @@ public class Program {
             Comparator<Student> comparator = askForComparator();
             sortedStudents = CustomAdditionalSort.sort(students, comparator);
             return true;
-        }
-        else {
+        } else {
             System.out.println("Нет данных");
             return false;
         }
@@ -230,8 +228,7 @@ public class Program {
                         Student studentToFind = StudentUtils.askUserForStudent(input);
                         occurance = ElementOccurrenceCounter.countOccurrences(students, studentToFind, 3);
                         System.out.println("Количество вхождений = " + occurance);
-                    }
-                    else {
+                    } else {
                         System.out.println("Нет студентов");
                     }
                     System.out.println();
