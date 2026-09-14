@@ -14,6 +14,7 @@ import com.aston.project.app.utils.sort.CustomAdditionalSort;
 import com.aston.project.app.utils.sort.CustomSort;
 
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -81,7 +82,7 @@ public class Program {
         System.out.println("8. Найти количество вхождений элемента\n");
     }
 
-    private void fillStudents(FillStrategy strategy) throws RuntimeException {
+    private void fillStudents(FillStrategy strategy) throws InputMismatchException {
         boolean isJsonFillStrategy = strategy instanceof JsonFillStrategy;
         int length;
         if (isJsonFillStrategy) {
@@ -95,18 +96,28 @@ public class Program {
 
     private int askForLength() {
         System.out.println("Введите количество элементов");
-        int count = input.nextInt();
+        int count;
+        if (!input.hasNextInt()) {
+            input.nextLine();
+            throw new IllegalArgumentException("Введите число!");
+        }
+        count = input.nextInt();
         if (count <= 0) {
-            throw new RuntimeException("Количество элементов должно быть больше или равно 1");
+            throw new InputMismatchException("Количество элементов должно быть больше или равно 1");
         }
         return count;
     }
 
     private int askForJsonLength() {
         System.out.println("Введите количество элементов(0 - прочитать весь файл)");
-        int count = input.nextInt();
+        int count;
+        if (!input.hasNextInt()) {
+            input.nextLine();
+            throw new IllegalArgumentException("Введите число!");
+        }
+        count = input.nextInt();
         if (count < 0) {
-            throw new RuntimeException("Количество элементов не может быть отрицательным");
+            throw new InputMismatchException("Количество элементов не может быть отрицательным");
         }
         return count;
     }
@@ -156,7 +167,7 @@ public class Program {
     public void start() {
         while (isRunning) {
             printInfo();
-            String code = input.next();
+            String code = input.nextLine().trim();
             switch (code.toLowerCase()) {
                 case "q":
                     System.out.println("Выход из программы");
@@ -167,7 +178,7 @@ public class Program {
                     System.out.println("Чтение данных из JSON файл");
                     try {
                         fillStudents(new JsonFillStrategy(JSON_PATH));
-                    } catch (RuntimeException e) {
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
@@ -176,7 +187,7 @@ public class Program {
                     System.out.println("Генерация рандомных данных");
                     try {
                         fillStudents(new RandomFillStrategy());
-                    } catch (RuntimeException e) {
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
@@ -185,7 +196,7 @@ public class Program {
                     System.out.println("Ручной ввод");
                     try {
                         fillStudents(new ManualFillStrategy(input));
-                    } catch (RuntimeException e) {
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println();
