@@ -97,10 +97,10 @@ public class StudentTest {
     private static void testComparators() {
         System.out.println("\n--- Тест компараторов ---");
         List<Student> students = new ArrayList<>();
-        students.add(new StudentBuilder().setGroupNumber(102).setStudentId(54321).setAverageGrade(75.0).build());
-        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build());
-        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(67890).setAverageGrade(92.1).build());
-        students.add(new StudentBuilder().setGroupNumber(103).setStudentId(98765).setAverageGrade(75.0).build());
+        students.add(new StudentBuilder().setGroupNumber(102).setStudentId(54321).setAverageGrade(5.0).build());
+        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build());
+        students.add(new StudentBuilder().setGroupNumber(101).setStudentId(67890).setAverageGrade(3.1).build());
+        students.add(new StudentBuilder().setGroupNumber(103).setStudentId(98765).setAverageGrade(2.6).build());
 
         boolean allPassed = true;
 
@@ -146,9 +146,9 @@ public class StudentTest {
         System.out.println("\n--- Тест equals() и hashCode() ---");
         boolean allPassed = true;
 
-        Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build();
-        Student s2 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(85.5).build();
-        Student s3 = new StudentBuilder().setGroupNumber(102).setStudentId(12345).setAverageGrade(85.5).build();
+        Student s1 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(4.5).build();
+        Student s2 = new StudentBuilder().setGroupNumber(101).setStudentId(12345).setAverageGrade(3.5).build();
+        Student s3 = new StudentBuilder().setGroupNumber(102).setStudentId(12345).setAverageGrade(1.5).build();
         Student s4 = s1;
 
         if (!s1.equals(s4)) {
@@ -207,7 +207,7 @@ public class StudentTest {
         }
     }
 
-    //public static void main(String[] args) {
-    //    StudentTests.runTests();
-    //}
+    public static void main(String[] args) {
+        runTests();
+    }
 }
